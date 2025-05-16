@@ -17,60 +17,43 @@ GRAVITE = 0.5
 SAUT_VELOCITE = -5
 SOL_Y = 112  
 COLKEY = 2
+sol_toucher = True
 
-co_tuile_p =[(0,16),(16,16),(38,16),(48,16)]
-
-
-
-
-#fonctions
 def appliquer_gravite():
     personnage["vy"] += GRAVITE
     personnage["y"] += personnage["vy"]
 
 def gerer_collision_avec_sol():
     global personnage
-    if personnage["y"] + personnage["hauteur"] >= SOL_Y:
-        personnage["y"] = SOL_Y - personnage["hauteur"]
-        personnage["vy"] = 0
+    couleur = []
+    for i in range(16):
+         couleur.append(py.pget(personnage["x"] + i, personnage["y"] + personnage["hauteur"] + 1))
+    return 0 in couleur
 
 def personnage_update():
     # Gauche
-    if py.btn(py.KEY_Q):
+    if py.btn(py.KEY_Q) and gerer_collision_avec_mur():
         personnage["x"] -= personnage["vx"]
 
     # Droite
-    if py.btn(py.KEY_D):
+    if py.btn(py.KEY_D) and gerer_collision_avec_mur():
         personnage["x"] += personnage["vx"]
 
     # Saut si sur le sol
-    if py.btnp(py.KEY_SPACE):
+    if py.btnp(py.KEY_SPACE) and personnage["y"] > 0:
         if personnage["y"] + personnage["hauteur"] >= SOL_Y:
             personnage["vy"] = SAUT_VELOCITE
-
-
-
-# animation
-def animation(spr,sprx,spry):
-    f = py.frame_count % len(spr)
-    py.blt(sprx, spry, 0, spr[f][0], spr[f][1],16,16, colkey = COLKEY)
-        
-
-
-
+    if sol_toucher == False :
+        y = 2
 
 def update():
     personnage_update()
     appliquer_gravite()
     gerer_collision_avec_sol()
-    animation(co_tuile_p, personnage["x"],personnage["y"])
-
-
-
+    sol_toucher  = gerer_collision_avec_sol()
 def draw():
-    global personnage
     py.cls(0)
     py.bltm(0, 0, 0, 0, 0, 128, 128)
-    personnage = py.blt(personnage['x'],personnage['y'],0,0,16,16,16)
+    py.blt(personnage["x"], personnage["y"], 0, 0, 16, 16, 16, colkey=COLKEY)
 
 py.run(update, draw)
