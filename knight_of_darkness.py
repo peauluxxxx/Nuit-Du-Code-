@@ -55,11 +55,15 @@ global personnage_position, en haut, sur sol
 
 
 def DRAW():
+  py.cls()
+  py.bltm(0,0,0, 1,0,0,16,16)
+  personnage = py.blt(personnage_position['x'], personnage_position["y"],0,0,16,16,16)
+  
   
 
 
 
-py.show(UPDATE,DRAW)
+py.run(UPDATE,DRAW)
 
 
 
