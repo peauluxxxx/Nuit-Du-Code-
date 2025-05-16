@@ -124,7 +124,15 @@ def dessin_coffre(coffre):
     """ fonction permettant de dessiner le coffre tout en lançant la fin du niveau et l'apparition du niveau suivant
     """
     py.blt(coffre["x"],coffre["y"], 0,32, 32, 16, 16)
-    #if coffre['x'] + personnage['largeur'] == personnage['x'] :
+    if coffre['x'] + personnage['largeur'] == personnage['x']:
+        if coffre['y'] == personnage['y']:
+            py.blt(coffre["x"],coffre["y"], 0,48, 32, 16, 16)
+            py.play(3,5)
+            while t < 121 :
+                t += 1
+            if t  >= 120 :
+                lvl2 = True
+                
         
         
         
@@ -137,11 +145,13 @@ def update():
 
 # fonction DRAW
 def draw():
+    global lvl2
     py.cls(0)
-    py.bltm(0, 0, 0, 0, 0, 128, 128)
-    py.blt(personnage["x"], personnage["y"], 0, sprite_x, sprite_y, 16, 16, colkey=COLKEY)
-    dessin_coffre(coffre)
-    dessin_coeur(coeur)
+    if lvl2 == False :
+        py.bltm(0, 0, 0, 0, 0, 128, 128)
+        dessin_coffre(coffre)
+    else:
+        py.bltm(0,0,0, pos_decor, 0, 128, 128)
 
 # lancement du jeu 
 py.run(update, draw)
