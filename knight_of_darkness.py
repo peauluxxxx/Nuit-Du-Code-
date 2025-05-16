@@ -18,6 +18,10 @@ SAUT_VELOCITE = -5
 SOL_Y = 112  
 COLKEY = 2
 
+
+
+
+#fonctions
 def appliquer_gravite():
     personnage["vy"] += GRAVITE
     personnage["y"] += personnage["vy"]
@@ -42,14 +46,33 @@ def personnage_update():
         if personnage["y"] + personnage["hauteur"] >= SOL_Y:
             personnage["vy"] = SAUT_VELOCITE
 
+
+
+# animation
+def animation_personnage():
+    x =0
+    y = 0
+    if py.frame_count() / 10 == 0:
+        x += 16
+        py.blt(personnage["x"], personnage["y"], 0, x, y, 16, 16, colkey=COLKEY)
+        if x >= 64:
+            x=0
+        
+
+
+
+
 def update():
     personnage_update()
     appliquer_gravite()
     gerer_collision_avec_sol()
+    animation_personnage()
+
+
 
 def draw():
     py.cls(0)
     py.bltm(0, 0, 0, 0, 0, 128, 128)
-    py.blt(personnage["x"], personnage["y"], 0, 0, 16, 16, 16, colkey=COLKEY)
+    animation_personnage()
 
 py.run(update, draw)
