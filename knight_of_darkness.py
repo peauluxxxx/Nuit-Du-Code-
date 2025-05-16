@@ -16,13 +16,13 @@ def personnage(personnage_position):
   y = personnage_position["y"]
   v = personnage_position['v']
     #a droite
-  if pyxel.btn(pyxel.KEY_RIGHT) and alien[0] + VITESSE <= 15:
+  if pyxel.btn(pyxel.KEY_RIGHT) and alien[0] + v <= 15:
         v = 0
-        x += VITESSE
+        x += v
     # a gauche
-  if pyxel.btn(pyxel.KEY_LEFT) and alien[0] - VITESSE >= 0:
+  if pyxel.btn(pyxel.KEY_LEFT) and alien[0] - v >= 0:
         v = 2
-        x -= VITESSE
+        x -= v
   if py.btn(pyxel.KEY_SPACE):
     en_saut = True
     y += 4
