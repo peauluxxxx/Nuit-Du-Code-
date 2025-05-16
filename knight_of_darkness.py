@@ -86,6 +86,7 @@ def animation():
             compteur = 0
         sprite_x = sprite_chevalier[compteur][0]
         sprite_y = sprite_chevalier[compteur][1]
+def animation_
 
 def dessin_coeur(coeur):
     x = 80
@@ -95,7 +96,9 @@ def dessin_coeur(coeur):
 
 def dessin_coffre(coffre):
     py.blt(coffre["x"],coffre["y"], 0,32, 32, 16, 16)
-
+    if coffre['x'] + personnage['largeur'] == personnage['x'] :
+        
+        
         
 
 def update():
