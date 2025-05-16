@@ -12,6 +12,9 @@ personnage_position = {"x": 10, "y": 90 }
 # fonctions 
 
 def personnage(personnage_position):
+  x = personnage_position["x"]
+  y = personnage_position["y"]
+  if py.btn
   
   
 
