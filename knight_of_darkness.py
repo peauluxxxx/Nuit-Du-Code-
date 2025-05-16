@@ -1,20 +1,22 @@
 import pyxel as py
 
+
+# Initialisation de la fenêtre et chargement du fichier ressource.
 py.init(128, 128, title="Knight of Darkness NDC")
 py.load("2.pyxres")
 
-py.play(0, [0,0,0,0,0,0], loop = True)
-py.play(1, [1,1,2,1,1,3], loop = True)
+# Ajout de la musique 
+py.playm(0, loop = True)
+
+# Variable principale
 animation_frame = 0
 sprite_x = 0
 sprite_y = 16
 compteur = 0
 sprite_chevalier = [(0,16), (16,16), (32,16), (48,16)]
 coffre = {"x": 0,
-          "y": 16
-          }
-coeur = 2
-
+          "y": 16}
+coeur = 3
 
 
 # Constantes
@@ -34,8 +36,12 @@ personnage = {
     "en_saut": False
 }
 
+## FONCTION
 # Fonctions de collision
+
 def collision_verticale(y_offset):
+    """ fonction permettant la collision verticale du personnage avec le décor
+    """
     for i in range(personnage["largeur"]):
         couleur = py.pget(personnage["x"] + i, personnage["y"] + y_offset)
         if couleur == 0:
@@ -43,6 +49,8 @@ def collision_verticale(y_offset):
     return False
 
 def collision_horizontale(x_offset):
+    """ fonction permettant la collision horizontale du personnage avec le décor
+    """
     for i in range(personnage["hauteur"]):
         couleur = py.pget(personnage["x"] + x_offset, personnage["y"] + i)
         if couleur == 0:
@@ -50,7 +58,10 @@ def collision_horizontale(x_offset):
     return False
 
 # Mise à jour du personnage
+
 def personnage_update():
+    """ fonction permettant de déplacer et de faire sauter en appliquant la gravité et la collision plafond
+    """
     # Déplacement horizontal
     if py.btn(py.KEY_Q) and not collision_horizontale(-1):
         personnage["x"] -= personnage["vx"]
@@ -79,6 +90,8 @@ def personnage_update():
 
 
 def animation():
+    """ fonction permettant d'animer le personnage en changeant de sprite
+    """
     global sprite_x, sprite_y, animation_frame, compteur
     if animation_frame % 5 == 0:
         compteur += 1
@@ -86,21 +99,25 @@ def animation():
             compteur = 0
         sprite_x = sprite_chevalier[compteur][0]
         sprite_y = sprite_chevalier[compteur][1]
-def animation_
+
 
 def dessin_coeur(coeur):
+    """ fonction permettant de dessiner les coeurs en fonction de la valeur de l'integer dans la variable coeur
+    """
     x = 80
     for i in range(coeur):
         py.blt(x,0, 0,112, 48, 16, 16)
         x+= 16
 
 def dessin_coffre(coffre):
+    """ fonction permettant de dessiner le coffre tout en lançant la fin du niveau et l'apparition du niveau suivant
+    """
     py.blt(coffre["x"],coffre["y"], 0,32, 32, 16, 16)
-    if coffre['x'] + personnage['largeur'] == personnage['x'] :
+    #if coffre['x'] + personnage['largeur'] == personnage['x'] :
         
         
         
-
+#  fonction UPDATE
 def update():
     global animation_frame
     animation_frame += 1
@@ -108,7 +125,7 @@ def update():
         animation_frame = 0
     personnage_update()
 
-    
+# fonction DRAW
 def draw():
     py.cls(0)
     py.bltm(0, 0, 0, 0, 0, 128, 128)
@@ -116,4 +133,5 @@ def draw():
     dessin_coffre(coffre)
     dessin_coeur(coeur)
 
+# lancement du jeu 
 py.run(update, draw)
