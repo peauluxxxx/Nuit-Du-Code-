@@ -4,15 +4,30 @@ py.init(128,128,"knight_of_darkness NDC")
 py.load("2.pyxres")
 
 # Variable principale
-personnage_position = {"x": 10, "y": 90 }
-
-
-
-
+personnage_position = {"x": 10, "y": 90, 'v' = 1 }
+t_chute = 0
+en_saut = False
+sur_sol = True
 # fonctions 
 
 def personnage(personnage_position):
-  
+  global en_saut
+  x = personnage_position["x"]
+  y = personnage_position["y"]
+  v = personnage_position['v']
+    #a droite
+  if pyxel.btn(pyxel.KEY_RIGHT) and alien[0] + VITESSE <= 15:
+        v = 0
+        x += VITESSE
+    # a gauche
+    if pyxel.btn(pyxel.KEY_LEFT) and alien[0] - VITESSE >= 0:
+        v = 2
+        x -= VITESSE
+  if py.btn(pyxel.KEY_SPACE):
+    en_saut = True
+    y += 4
+    
+
   
 def gravité():
     global t_chute
@@ -25,13 +40,22 @@ def gravité():
     else:
         t_chute = 0
 
+def sur_sol(personnage_position):
+  global sur_sol
+  if pget(personnage_position["x"],personnage_position['y'] == 1:
+    sur_sol = True
+  else : 
+    sur_sol = False
 
+  
 def UPDATE():
+  
 
 
 
 
 def DRAW():
+  
 
 
 
