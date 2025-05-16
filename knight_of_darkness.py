@@ -32,24 +32,24 @@ personnage = {
 # Fonctions de collision
 def collision_verticale(y_offset):
     for i in range(personnage["largeur"]):
-        couleur = pyxel.pget(personnage["x"] + i, personnage["y"] + y_offset)
+        couleur = py.pget(personnage["x"] + i, personnage["y"] + y_offset)
         if couleur == 0:
             return True
     return False
 
 def collision_horizontale(x_offset):
     for i in range(personnage["hauteur"]):
-        couleur = pyxel.pget(personnage["x"] + x_offset, personnage["y"] + i)
+        couleur = py.pget(personnage["x"] + x_offset, personnage["y"] + i)
         if couleur == 0:
             return True
     return False
 
 # Mise à jour du personnage
-def update_personnage():
+def personnage_update():
     # Déplacement horizontal
-    if pyxel.btn(pyxel.KEY_Q) and not collision_horizontale(-1):
+    if py.btn(py.KEY_Q) and not collision_horizontale(-1):
         personnage["x"] -= personnage["vx"]
-    if pyxel.btn(pyxel.KEY_D) and not collision_horizontale(personnage["largeur"]):
+    if py.btn(py.KEY_D) and not collision_horizontale(personnage["largeur"]):
         personnage["x"] += personnage["vx"]
 
     # Saut
@@ -57,7 +57,7 @@ def update_personnage():
     if si_au_sol:
         personnage["vy"] = 0
         personnage["en_saut"] = False
-        if pyxel.btnp(pyxel.KEY_SPACE):
+        if py.btnp(py.KEY_SPACE):
             personnage["vy"] = SAUT_FORCE
             personnage["en_saut"] = True
     else:
@@ -87,8 +87,7 @@ def update():
     if animation_frame > 30:
         animation_frame = 0
     personnage_update()
-    appliquer_gravite()
-    gerer_collision_avec_sol()
+
     
 def draw():
     py.cls(0)
