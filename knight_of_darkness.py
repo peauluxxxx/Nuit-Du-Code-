@@ -20,15 +20,23 @@ COLKEY = 2
 sol_toucher = True
 
 def appliquer_gravite():
-    personnage["vy"] += GRAVITE
-    personnage["y"] += personnage["vy"]
+    if gerer_collision_avec_sol() == False : 
+        personnage["vy"] += GRAVITE
+        personnage["y"] += personnage["vy"]
 
 def gerer_collision_avec_sol():
     global personnage
     couleur = []
     for i in range(16):
-         couleur.append(py.pget(personnage["x"] + i, personnage["y"] + personnage["hauteur"] + 1))
+         couleur.append(py.pget(personnage["x"] + i, personnage["y"] + personnage["hauteur"]))
     return 0 in couleur
+
+def gerer_collision_avec_mur():
+    global personnage
+    couleur2 = []
+    for i in range(16):
+         couleur2.append(py.pget(personnage["x"] + personnage['largeur'], personnage["y"] + i))
+    return 0 in couleur2
 
 def personnage_update():
     # Gauche
@@ -38,19 +46,22 @@ def personnage_update():
     # Droite
     if py.btn(py.KEY_D) and gerer_collision_avec_mur():
         personnage["x"] += personnage["vx"]
-
-    # Saut si sur le sol
+        
+    
     if py.btnp(py.KEY_SPACE) and personnage["y"] > 0:
         if personnage["y"] + personnage["hauteur"] >= SOL_Y:
             personnage["vy"] = SAUT_VELOCITE
-    if sol_toucher == False :
-        y = 2
+
+    if sol_toucher == True :
+        y = 0 
+
+
 
 def update():
     personnage_update()
     appliquer_gravite()
     gerer_collision_avec_sol()
-    sol_toucher  = gerer_collision_avec_sol()
+    
 def draw():
     py.cls(0)
     py.bltm(0, 0, 0, 0, 0, 128, 128)
