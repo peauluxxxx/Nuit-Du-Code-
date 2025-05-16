@@ -65,10 +65,10 @@ def personnage_update():
     # Déplacement horizontal
     if py.btn(py.KEY_Q) and not collision_horizontale(-1):
         personnage["x"] -= personnage["vx"]
-        animation()
+        animation_deplacement()
     if py.btn(py.KEY_D) and not collision_horizontale(personnage["largeur"]):
         personnage["x"] += personnage["vx"]
-        animation()
+        animation_deplacement()
 
     # Saut
     si_au_sol = collision_verticale(personnage["hauteur"])
@@ -89,8 +89,8 @@ def personnage_update():
     personnage["y"] += personnage["vy"]
 
 
-def animation():
-    """ fonction permettant d'animer le personnage en changeant de sprite
+def animation_deplacement():
+    """ fonction permettant d'animer le personnage en changeant de sprite quand il se déplace
     """
     global sprite_x, sprite_y, animation_frame, compteur
     if animation_frame % 5 == 0:
@@ -99,7 +99,18 @@ def animation():
             compteur = 0
         sprite_x = sprite_chevalier[compteur][0]
         sprite_y = sprite_chevalier[compteur][1]
-
+        
+def animation():
+    """Foncton qui gére les animations du sprite à l'arrêt
+    """
+    global sprite_x, sprite_y, animation_frame
+    if animation_frame % 10 == 0:
+        sprite_x = sprite_chevalier[2][0]
+        sprite_y = sprite_chevalier[2][1]
+    elif animation_frame % 5 == 0:
+        sprite_x = sprite_chevalier[0][0]
+        sprite_y = sprite_chevalier[0][1]
+        
 
 def dessin_coeur(coeur):
     """ fonction permettant de dessiner les coeurs en fonction de la valeur de l'integer dans la variable coeur
@@ -121,9 +132,8 @@ def dessin_coffre(coffre):
 def update():
     global animation_frame
     animation_frame += 1
-    if animation_frame > 30:
-        animation_frame = 0
     personnage_update()
+    animation()
 
 # fonction DRAW
 def draw():
