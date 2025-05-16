@@ -75,8 +75,6 @@ def animation():
 def update():
     global animation_frame
     animation_frame += 1
-    if animation_frame > 30:
-        animation_frame = 0
     personnage_update()
     appliquer_gravite()
     gerer_collision_avec_sol()
