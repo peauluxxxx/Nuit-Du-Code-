@@ -10,6 +10,11 @@ sprite_x = 0
 sprite_y = 16
 compteur = 0
 sprite_chevalier = [(0,16), (16,16), (32,16), (48,16)]
+coffre = {"x": 0,
+          "y": 16
+          }
+coeur = 2
+
 
 
 # Constantes
@@ -81,6 +86,16 @@ def animation():
             compteur = 0
         sprite_x = sprite_chevalier[compteur][0]
         sprite_y = sprite_chevalier[compteur][1]
+
+def dessin_coeur(coeur):
+    x = 80
+    for i in range(coeur):
+        py.blt(x,0, 0,112, 48, 16, 16)
+        x+= 16
+
+def dessin_coffre(coffre):
+    py.blt(coffre["x"],coffre["y"], 0,32, 32, 16, 16)
+
         
 
 def update():
@@ -95,5 +110,7 @@ def draw():
     py.cls(0)
     py.bltm(0, 0, 0, 0, 0, 128, 128)
     py.blt(personnage["x"], personnage["y"], 0, sprite_x, sprite_y, 16, 16, colkey=COLKEY)
+    dessin_coffre(coffre)
+    dessin_coeur(coeur)
 
 py.run(update, draw)
