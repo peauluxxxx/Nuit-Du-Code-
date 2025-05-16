@@ -10,4 +10,5 @@ Knight of darkness est un jeu de platforme rétro avec des commandes simples:
 - Aller à gauche (touche q)
 - Aller à droite (touche d)
 - Sauter (barre d'espace)
+
 Le jeu est composé de deux niveaux sans ennemis et pour réussir les niveaux il faut atteindre lecoffre et tenter de récuperer la potion contre la malédiction. 
