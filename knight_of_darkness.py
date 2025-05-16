@@ -49,8 +49,10 @@ def personnage_update():
     # Déplacement horizontal
     if py.btn(py.KEY_Q) and not collision_horizontale(-1):
         personnage["x"] -= personnage["vx"]
+        animation()
     if py.btn(py.KEY_D) and not collision_horizontale(personnage["largeur"]):
         personnage["x"] += personnage["vx"]
+        animation()
 
     # Saut
     si_au_sol = collision_verticale(personnage["hauteur"])
